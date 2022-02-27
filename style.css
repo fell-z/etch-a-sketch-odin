@@ -35,10 +35,16 @@ body {
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
+  border: 2px solid rgb(180, 180, 180);
 }
 
 .canvas-square {
   flex: 0 0 auto;
+  box-sizing: border-box;
   width: 32px;
   height: 32px;
+}
+
+.square-borders {
+  border: 1px solid rgb(180, 180, 180);
 }

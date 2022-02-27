@@ -1,11 +1,12 @@
 /*
-  * IDEA: Make a button that when clicked, it gonna toggle a special
-  * grid layout with border between the divs to outline each one.
-  * useful to do, for example, more symmetrical arts
-*/
+ * IDEA: Make a button that when clicked, it gonna toggle a special
+ * grid layout with border between the divs to outline each one.
+ * useful to do, for example, more symmetrical arts
+ */
 
 // REFERENCE ELEMENTS
 const mainContainer = document.querySelector(".main");
+const toggleGridButton = document.querySelector(".toggle-grid");
 
 // CREATED ELEMENTS
 const canvasDiv = document.createElement("div");
@@ -14,6 +15,13 @@ canvasDiv.style.cssText = `
 width: 512px;
 height: 512px;
 `;
+
+toggleGridButton.addEventListener("click", () => {
+  const canvasSquares = document.querySelectorAll(".canvas-square");
+  for (const square of canvasSquares) {
+    square.classList.toggle("square-borders");
+  }
+});
 
 function createSquareGrid(numSquares) {
   for (let x = 0; x < numSquares; x++) {
@@ -27,4 +35,3 @@ function createSquareGrid(numSquares) {
 
 createSquareGrid(16);
 mainContainer.appendChild(canvasDiv);
-
