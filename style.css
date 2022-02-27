@@ -1,41 +1,62 @@
 :root {
-  --primary-color: rgb(221, 251, 169); /* bright lime */
+  --primary-color: rgb(169, 218, 251); /* baby blue */
   --secondary-color: rgb(251, 169, 221); /* soft pink */
-  --tertiary-color: rgb(169, 218, 251); /* baby blue */
+  --tertiary-color: rgb(221, 251, 169); /* bright lime */
 }
 
 * {
   margin: 0;
-  padding: 0;
+  padding: 0; 
 }
 
 body {
   background-color: var(--primary-color);
-  height: 100vh;
+  height: 90vh;
   display: flex;
-  justify-content: center;
   align-items: center;
+  padding: 24px;
 }
 
 .main {
-  border: 2px solid red;
+  flex: 1 0 auto;
   display: flex;
   align-items: center;
   width: 900px;
-  height: 520px;
+  height: 80vh;
 }
 
 .controls {
-  border: 2px solid red;
-  width: 300px;
-  height: 100%;
+  flex: 0 0 auto;
+  background-color: var(--tertiary-color);
+  border: 3px solid var(--tertiary-color);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 250px;
+  height: 512px;
+  padding: 8px;
+  margin-right: 60px;
+}
+
+.toggle-grid {
+  margin-top: auto;
+  font-size: 18px;
+  font-weight: 700;
+  border: 0;
+  border-radius: 8px;
+  padding: 6px;
+  background-color: var(--secondary-color);
 }
 
 .canvas {
+  flex: 0 0 auto;
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
-  border: 2px solid rgb(180, 180, 180);
+  border: 2px solid var(--secondary-color);
+  border-radius: 4px;
+  background-color: white;
 }
 
 .canvas-square {
@@ -46,5 +67,5 @@ body {
 }
 
 .square-borders {
-  border: 1px solid rgb(180, 180, 180);
+  border: 1px solid rgba(180, 180, 180, 0.4);
 }
