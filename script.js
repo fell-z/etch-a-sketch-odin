@@ -5,7 +5,6 @@
  */
 
 // REFERENCE ELEMENTS
-const mainContainer = document.querySelector(".main");
 const toggleGridButton = document.querySelector(".toggle-grid");
 
 // CREATED ELEMENTS
@@ -34,4 +33,4 @@ function createSquareGrid(numSquares) {
 }
 
 createSquareGrid(16);
-mainContainer.appendChild(canvasDiv);
+document.body.insertBefore(canvasDiv, document.querySelector(".controls"));
