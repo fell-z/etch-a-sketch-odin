@@ -22,11 +22,20 @@ toggleGridButton.addEventListener("click", () => {
   }
 });
 
+function randomSquareColor(event) {
+  const red = Math.floor(Math.random() * 255) + 1;
+  const green = Math.floor(Math.random() * 255) + 1;
+  const blue = Math.floor(Math.random() * 255) + 1;
+
+  event.target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+}
+
 function createSquareGrid(numSquares) {
   for (let x = 0; x < numSquares; x++) {
     for (let y = 0; y < numSquares; y++) {
       const square = document.createElement("div");
       square.classList.add("canvas-square");
+      square.addEventListener("mouseenter", randomSquareColor);
       canvasDiv.appendChild(square);
     }
   }
