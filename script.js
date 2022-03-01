@@ -6,6 +6,7 @@
 
 // REFERENCE ELEMENTS
 const toggleGridButton = document.querySelector(".toggle-grid");
+const clearGridButton = document.querySelector(".clear-grid");
 
 // CREATED ELEMENTS
 const canvasDiv = document.createElement("div");
@@ -14,13 +15,6 @@ canvasDiv.style.cssText = `
 width: 512px;
 height: 512px;
 `;
-
-toggleGridButton.addEventListener("click", () => {
-  const canvasSquares = document.querySelectorAll(".canvas-square");
-  for (const square of canvasSquares) {
-    square.classList.toggle("square-borders");
-  }
-});
 
 function randomSquareColor(event) {
   const red = Math.floor(Math.random() * 255) + 1;
@@ -40,6 +34,19 @@ function createSquareGrid(numSquares) {
     }
   }
 }
-
 createSquareGrid(16);
 document.body.insertBefore(canvasDiv, document.querySelector(".controls"));
+const canvasSquares = document.querySelectorAll(".canvas-square");
+
+toggleGridButton.addEventListener("click", () => {
+  for (const square of canvasSquares) {
+    square.classList.toggle("square-borders");
+  }
+});
+
+clearGridButton.addEventListener("click", () => {
+  for (const square of canvasSquares) {
+    square.style.backgroundColor = "white";
+  }
+})
+
