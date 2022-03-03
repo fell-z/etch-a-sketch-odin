@@ -1,19 +1,16 @@
-/*
- * IDEA: Make a button that when clicked, it gonna toggle a special
- * grid layout with border between the divs to outline each one.
- * useful to do, for example, more symmetrical arts
- */
-
 // REFERENCE ELEMENTS
 const toggleGridButton = document.querySelector(".toggle-grid");
 const clearGridButton = document.querySelector(".clear-grid");
+const sizeGridSlider = document.querySelector(".size-of-grid-slider input");
 
 // CREATED ELEMENTS
+const canvasSize = 600;
+
 const canvasDiv = document.createElement("div");
 canvasDiv.classList.add("canvas");
 canvasDiv.style.cssText = `
-width: 512px;
-height: 512px;
+width: ${canvasSize}px;
+height: ${canvasSize}px;
 `;
 
 function randomSquareColor(event) {
@@ -24,19 +21,47 @@ function randomSquareColor(event) {
   event.target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
 }
 
-function createSquareGrid(numSquares) {
+function createSquareGrid() {
+  const numSquares = sizeGridSlider.value;
+
+  const hasSquareBorders =
+    document.getElementsByClassName("square-borders").length > 0 ? true : false;
+
+  // just verify if grid has already been created
+  if (canvasDiv.childNodes.length) {
+    canvasDiv.childNodes.forEach((element) => {
+      element.removeEventListener("mouseenter", randomSquareColor);
+    });
+    canvasDiv.innerHTML = "";
+    /*
+     * the idea originally was to remove the element in the forEach loop, but it stops
+     * halfway the nodelist, i really don't know what was happening, so i stick with the
+     * innerHTML method for now
+     */
+  }
+
   for (let x = 0; x < numSquares; x++) {
     for (let y = 0; y < numSquares; y++) {
       const square = document.createElement("div");
+      square.style.cssText = `
+width: ${canvasSize / numSquares}px;
+height: ${canvasSize / numSquares}px;
+`;
       square.classList.add("canvas-square");
       square.addEventListener("mouseenter", randomSquareColor);
       canvasDiv.appendChild(square);
     }
   }
+  canvasSquares = canvasDiv.childNodes;
+  if (hasSquareBorders) {
+    for (const square of canvasSquares) {
+      square.classList.toggle("square-borders");
+    }
+  }
 }
-createSquareGrid(16);
+let canvasSquares;
+createSquareGrid();
 document.body.insertBefore(canvasDiv, document.querySelector(".controls"));
-const canvasSquares = document.querySelectorAll(".canvas-square");
 
 toggleGridButton.addEventListener("click", () => {
   for (const square of canvasSquares) {
@@ -48,5 +73,6 @@ clearGridButton.addEventListener("click", () => {
   for (const square of canvasSquares) {
     square.style.backgroundColor = "white";
   }
-})
+});
 
+sizeGridSlider.addEventListener("change", createSquareGrid);
