@@ -58,10 +58,17 @@ h1 {
   gap: 24px;
 }
 
-.size-of-grid-slider {
+.slider-container {
   display: flex;
   flex-direction: column;
   text-align: center;
+}
+
+.custom-color-preview {
+  height: 32px;
+  align-self: stretch;
+  margin-bottom: 8px;
+  background-color: rgb(120, 120, 120);
 }
 
 .canvas-container {

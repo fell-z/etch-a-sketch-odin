@@ -1,11 +1,13 @@
 // REFERENCE ELEMENTS
 const blackColorButton = document.querySelector(".black-square-color");
 const rainbowColorButton = document.querySelector(".rainbow-square-color");
+
 const customColorButton = document.querySelector(".custom-square-color");
+const customColorPreview = document.querySelector(".custom-color-preview");
 
 const toggleGridButton = document.querySelector(".toggle-grid");
 const clearGridButton = document.querySelector(".clear-grid");
-const sizeGridSlider = document.querySelector(".size-of-grid-slider input");
+const sizeGridSlider = document.querySelector("#size-of-grid");
 
 const canvasContainer = document.querySelector(".canvas-container");
 
@@ -23,12 +25,27 @@ function blackSquareColor(event) {
   event.target.style.backgroundColor = `#000`;
 }
 
-function rainbowSquareColor(event) {
-  const red = Math.floor(Math.random() * 255) + 1;
-  const green = Math.floor(Math.random() * 255) + 1;
-  const blue = Math.floor(Math.random() * 255) + 1;
+let cRed = "120",
+  cGreen = "120",
+  cBlue = "120";
+function setCustomColor() {
+  cRed = document.querySelector("#red").value;
+  cGreen = document.querySelector("#green").value;
+  cBlue = document.querySelector("#blue").value;
 
-  event.target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+  customColorPreview.style.backgroundColor = `rgb(${cRed}, ${cGreen}, ${cBlue})`;
+}
+
+function paintWithCustomColor(event) {
+  event.target.style.backgroundColor = `rgb(${cRed}, ${cGreen}, ${cBlue})`;
+}
+
+function rainbowSquareColor(event) {
+  const rRed = Math.floor(Math.random() * 255) + 1;
+  const rGreen = Math.floor(Math.random() * 255) + 1;
+  const rBlue = Math.floor(Math.random() * 255) + 1;
+
+  event.target.style.backgroundColor = `rgb(${rRed}, ${rGreen}, ${rBlue})`;
 }
 
 function createSquareGrid() {
@@ -45,7 +62,7 @@ function createSquareGrid() {
       } else if (currentEventListener === "black") {
         element.removeEventListener("mouseenter", blackSquareColor);
       } else {
-        element.removeEventListener("mouseenter", customSquareColor);
+        element.removeEventListener("mouseenter", paintWithCustomColor);
       }
     });
     canvasDiv.innerHTML = "";
@@ -71,7 +88,7 @@ height: ${canvasSize / numSquares}px;
       } else if (currentEventListener === "black") {
         square.addEventListener("mouseenter", blackSquareColor);
       } else {
-        square.addEventListener("mouseenter", customSquareColor);
+        square.addEventListener("mouseenter", paintWithCustomColor);
       }
       canvasDiv.appendChild(square);
     }
@@ -112,7 +129,7 @@ blackColorButton.addEventListener("click", () => {
         square.addEventListener("mouseenter", blackSquareColor);
         break;
       case "custom":
-        square.removeEventListener("mouseenter", customSquareColor);
+        square.removeEventListener("mouseenter", paintWithCustomColor);
         square.addEventListener("mouseenter", blackSquareColor);
         break;
     }
@@ -132,12 +149,36 @@ rainbowColorButton.addEventListener("click", () => {
         square.addEventListener("mouseenter", rainbowSquareColor);
         break;
       case "custom":
-        square.removeEventListener("mouseenter", customSquareColor);
+        square.removeEventListener("mouseenter", paintWithCustomColor);
         square.addEventListener("mouseenter", rainbowSquareColor);
         break;
     }
   }
   currentEventListener = "rainbow";
-})
+});
+
+customColorButton.addEventListener("click", () => {
+  for (const square of canvasSquares) {
+    switch (currentEventListener) {
+      case "rainbow":
+        square.removeEventListener("mouseenter", rainbowSquareColor);
+        square.addEventListener("mouseenter", paintWithCustomColor)
+        break;
+      case "black":
+        square.removeEventListener("mouseenter", blackSquareColor);
+        square.addEventListener("mouseenter", paintWithCustomColor);
+        break;
+      case "custom":
+        square.removeEventListener("mouseenter", paintWithCustomColor);
+        square.addEventListener("mouseenter", paintWithCustomColor);
+        break;
+    }
+  }
+  currentEventListener = "custom";
+});
+
+document.querySelectorAll(".color").forEach((slider) => {
+  slider.addEventListener("input", setCustomColor);
+});
 
 sizeGridSlider.addEventListener("change", createSquareGrid);

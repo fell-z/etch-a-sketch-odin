@@ -14,14 +14,29 @@
         <h2>Controls</h2>
         <button class="toggle-grid">Toggle grid-lines</button>
         <button class="clear-grid">Clear grid</button>
-        <div class="size-of-grid-slider">
+        <div class="slider-container">
           <label for="size-of-grid">Size of grid</label>
           <input type="range" min="8" max="32" value="12" step="2" id="size-of-grid" />
         </div>
         <h3>Color</h3>
         <button class="black-square-color">Black</button>
         <button class="rainbow-square-color">Rainbow</button>
-        <button class="custom-square-color">Placeholder</button>
+        <button class="custom-square-color">Custom Color</button>
+        <h3>Custom Color</h3>
+        <div class="slider-container color">
+          <label for="red">Red</label>
+          <input type="range" min="1" max="255" value="120" id="red" />
+        </div>
+        <div class="slider-container color">
+          <label for="green">Green</label>
+          <input type="range" min="1" max="255" value="120" id="green" />
+        </div>
+        <div class="slider-container color">
+          <label for="blue">Blue</label>
+          <input type="range" min="1" max="255" value="120" id="blue" />
+        </div>
+
+        <div class="custom-color-preview"></div>
       </div>
       <div class="canvas-container">
         <h1>Canvas</h1>
