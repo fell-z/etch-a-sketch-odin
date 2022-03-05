@@ -2,6 +2,7 @@
 const rainbowColorButton = document.querySelector(".rainbow-square-color");
 const customColorButton = document.querySelector(".custom-square-color");
 const customColorPreview = document.querySelector(".custom-color-preview");
+const customBackgroundColorButton = document.querySelector(".custom-background-color");
 
 const toggleGridButton = document.querySelector(".toggle-grid");
 const clearGridButton = document.querySelector(".clear-grid");
@@ -19,9 +20,9 @@ width: ${canvasSize}px;
 height: ${canvasSize}px;
 `;
 
-let cRed = "120",
-  cGreen = "120",
-  cBlue = "120";
+let cRed = "255",
+  cGreen = "255",
+  cBlue = "255";
 function setCustomColor() {
   cRed = document.querySelector("#red").value;
   cGreen = document.querySelector("#green").value;
@@ -103,7 +104,7 @@ toggleGridButton.addEventListener("click", () => {
 
 clearGridButton.addEventListener("click", () => {
   for (const square of canvasSquares) {
-    square.style.backgroundColor = "white";
+    square.style.backgroundColor = "";
   }
 });
 
@@ -142,5 +143,9 @@ customColorButton.addEventListener("click", () => {
 document.querySelectorAll(".color").forEach((slider) => {
   slider.addEventListener("input", setCustomColor);
 });
+
+customBackgroundColorButton.addEventListener("click", () => {
+  canvasDiv.style.backgroundColor = `rgb(${cRed}, ${cGreen}, ${cBlue})`;
+})
 
 sizeGridSlider.addEventListener("input", createSquareGrid);
