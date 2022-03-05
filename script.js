@@ -1,7 +1,5 @@
 // REFERENCE ELEMENTS
-const blackColorButton = document.querySelector(".black-square-color");
 const rainbowColorButton = document.querySelector(".rainbow-square-color");
-
 const customColorButton = document.querySelector(".custom-square-color");
 const customColorPreview = document.querySelector(".custom-color-preview");
 
@@ -21,10 +19,6 @@ width: ${canvasSize}px;
 height: ${canvasSize}px;
 `;
 
-function blackSquareColor(event) {
-  event.target.style.backgroundColor = `#000`;
-}
-
 let cRed = "120",
   cGreen = "120",
   cBlue = "120";
@@ -40,7 +34,7 @@ function paintWithCustomColor(event) {
   event.target.style.backgroundColor = `rgb(${cRed}, ${cGreen}, ${cBlue})`;
 }
 
-function rainbowSquareColor(event) {
+function paintWithRainbowColor(event) {
   const rRed = Math.floor(Math.random() * 255) + 1;
   const rGreen = Math.floor(Math.random() * 255) + 1;
   const rBlue = Math.floor(Math.random() * 255) + 1;
@@ -58,9 +52,7 @@ function createSquareGrid() {
   if (canvasDiv.childNodes.length) {
     canvasDiv.childNodes.forEach((element) => {
       if (currentEventListener === "rainbow") {
-        element.removeEventListener("mouseenter", rainbowSquareColor);
-      } else if (currentEventListener === "black") {
-        element.removeEventListener("mouseenter", blackSquareColor);
+        element.removeEventListener("mouseenter", paintWithRainbowColor); 
       } else {
         element.removeEventListener("mouseenter", paintWithCustomColor);
       }
@@ -84,9 +76,7 @@ height: ${canvasSize / numSquares}px;
 `;
       square.classList.add("canvas-square");
       if (currentEventListener === "rainbow") {
-        square.addEventListener("mouseenter", rainbowSquareColor);
-      } else if (currentEventListener === "black") {
-        square.addEventListener("mouseenter", blackSquareColor);
+        square.addEventListener("mouseenter", paintWithRainbowColor); 
       } else {
         square.addEventListener("mouseenter", paintWithCustomColor);
       }
@@ -117,40 +107,16 @@ clearGridButton.addEventListener("click", () => {
   }
 });
 
-blackColorButton.addEventListener("click", () => {
-  for (const square of canvasSquares) {
-    switch (currentEventListener) {
-      case "rainbow":
-        square.removeEventListener("mouseenter", rainbowSquareColor);
-        square.addEventListener("mouseenter", blackSquareColor);
-        break;
-      case "black":
-        square.removeEventListener("mouseenter", blackSquareColor);
-        square.addEventListener("mouseenter", blackSquareColor);
-        break;
-      case "custom":
-        square.removeEventListener("mouseenter", paintWithCustomColor);
-        square.addEventListener("mouseenter", blackSquareColor);
-        break;
-    }
-  }
-  currentEventListener = "black";
-});
-
 rainbowColorButton.addEventListener("click", () => {
   for (const square of canvasSquares) {
     switch (currentEventListener) {
       case "rainbow":
-        square.removeEventListener("mouseenter", rainbowSquareColor);
-        square.addEventListener("mouseenter", rainbowSquareColor);
-        break;
-      case "black":
-        square.removeEventListener("mouseenter", blackSquareColor);
-        square.addEventListener("mouseenter", rainbowSquareColor);
+        square.removeEventListener("mouseenter", paintWithRainbowColor);
+        square.addEventListener("mouseenter", paintWithRainbowColor);
         break;
       case "custom":
         square.removeEventListener("mouseenter", paintWithCustomColor);
-        square.addEventListener("mouseenter", rainbowSquareColor);
+        square.addEventListener("mouseenter", paintWithRainbowColor);
         break;
     }
   }
@@ -161,12 +127,8 @@ customColorButton.addEventListener("click", () => {
   for (const square of canvasSquares) {
     switch (currentEventListener) {
       case "rainbow":
-        square.removeEventListener("mouseenter", rainbowSquareColor);
+        square.removeEventListener("mouseenter", paintWithRainbowColor);
         square.addEventListener("mouseenter", paintWithCustomColor)
-        break;
-      case "black":
-        square.removeEventListener("mouseenter", blackSquareColor);
-        square.addEventListener("mouseenter", paintWithCustomColor);
         break;
       case "custom":
         square.removeEventListener("mouseenter", paintWithCustomColor);
@@ -181,4 +143,4 @@ document.querySelectorAll(".color").forEach((slider) => {
   slider.addEventListener("input", setCustomColor);
 });
 
-sizeGridSlider.addEventListener("change", createSquareGrid);
+sizeGridSlider.addEventListener("input", createSquareGrid);
