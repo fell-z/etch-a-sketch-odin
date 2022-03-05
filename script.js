@@ -2,7 +2,9 @@
 const rainbowColorButton = document.querySelector(".rainbow-square-color");
 const customColorButton = document.querySelector(".custom-square-color");
 const customColorPreview = document.querySelector(".custom-color-preview");
-const customBackgroundColorButton = document.querySelector(".custom-background-color");
+const customBackgroundColorButton = document.querySelector(
+  ".custom-background-color"
+);
 
 const toggleGridButton = document.querySelector(".toggle-grid");
 const clearGridButton = document.querySelector(".clear-grid");
@@ -47,42 +49,37 @@ function createSquareGrid() {
   const numSquares = sizeGridSlider.value;
 
   const hasSquareBorders =
-    document.getElementsByClassName("square-borders").length > 0 ? true : false;
+    document.getElementsByClassName("square-borders").length;
 
   // just verify if grid has already been created
-  if (canvasDiv.childNodes.length) {
+  if (canvasSquares) {
     canvasDiv.childNodes.forEach((element) => {
       if (currentEventListener === "rainbow") {
-        element.removeEventListener("mouseenter", paintWithRainbowColor); 
+        element.removeEventListener("mouseenter", paintWithRainbowColor);
       } else {
         element.removeEventListener("mouseenter", paintWithCustomColor);
       }
     });
     canvasDiv.innerHTML = "";
-    /*
-     * the idea originally was to remove the element in the forEach loop, but it stops
-     * halfway the nodelist, i really don't know what was happening, so i stick with the
-     * innerHTML method for now, which is better anyways
-     */
-  } else {
-    currentEventListener = "rainbow";
   }
-
-  for (let x = 0; x < numSquares; x++) {
-    for (let y = 0; y < numSquares; y++) {
-      const square = document.createElement("div");
-      square.style.cssText = `
+  // the condition here is to create the correct amount of squares in the grid
+  for (
+    let actualSquare = 0;
+    actualSquare < numSquares * numSquares;
+    actualSquare++
+  ) {
+    const square = document.createElement("div");
+    square.style.cssText = `
 width: ${canvasSize / numSquares}px;
 height: ${canvasSize / numSquares}px;
 `;
-      square.classList.add("canvas-square");
-      if (currentEventListener === "rainbow") {
-        square.addEventListener("mouseenter", paintWithRainbowColor); 
-      } else {
-        square.addEventListener("mouseenter", paintWithCustomColor);
-      }
-      canvasDiv.appendChild(square);
+    square.classList.add("canvas-square");
+    if (currentEventListener === "rainbow") {
+      square.addEventListener("mouseenter", paintWithRainbowColor);
+    } else {
+      square.addEventListener("mouseenter", paintWithCustomColor);
     }
+    canvasDiv.appendChild(square);
   }
   canvasSquares = canvasDiv.childNodes;
   if (hasSquareBorders) {
@@ -129,7 +126,7 @@ customColorButton.addEventListener("click", () => {
     switch (currentEventListener) {
       case "rainbow":
         square.removeEventListener("mouseenter", paintWithRainbowColor);
-        square.addEventListener("mouseenter", paintWithCustomColor)
+        square.addEventListener("mouseenter", paintWithCustomColor);
         break;
       case "custom":
         square.removeEventListener("mouseenter", paintWithCustomColor);
@@ -146,6 +143,6 @@ document.querySelectorAll(".color").forEach((slider) => {
 
 customBackgroundColorButton.addEventListener("click", () => {
   canvasDiv.style.backgroundColor = `rgb(${cRed}, ${cGreen}, ${cBlue})`;
-})
+});
 
 sizeGridSlider.addEventListener("input", createSquareGrid);

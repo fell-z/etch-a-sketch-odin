@@ -24,7 +24,7 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 16px 64px;
+  margin: 0 64px 14px;
 }
 
 h1,
