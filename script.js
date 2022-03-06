@@ -22,9 +22,9 @@ width: ${canvasSize}px;
 height: ${canvasSize}px;
 `;
 
-let cRed = "255",
-  cGreen = "255",
-  cBlue = "255";
+let cRed = "0",
+  cGreen = "0",
+  cBlue = "0";
 function setCustomColor() {
   cRed = document.querySelector("#red").value;
   cGreen = document.querySelector("#green").value;
